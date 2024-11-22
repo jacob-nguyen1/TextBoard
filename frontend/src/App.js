@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { io } from 'socket.io-client';
 
 const App = () => {
-  const API_URL = 'https://text-board-442517.ue.r.appspot.com'
+  const API_URL = 'https://text-board-442517.ue.r.appspot.com';
   const [board, setBoard] = useState([])
   const [input, setInput] = useState('')
 
@@ -12,7 +12,7 @@ const App = () => {
 
     const fetchBoard = async () => {
       try {
-        const response = await fetch(`${API_URL}/`);
+        const response = await fetch(`${API_URL}/api/board`);
         const data = await response.json();
         setBoard(data.board);
       } catch (e) {
@@ -40,7 +40,7 @@ const App = () => {
     if (event.key === 'Enter') {
       setInput('')
       try {
-        const response = await fetch(`${API_URL}`, {
+        const response = await fetch(`${API_URL}/api/board`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
