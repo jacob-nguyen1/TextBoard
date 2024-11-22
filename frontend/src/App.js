@@ -1,12 +1,16 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
+import { io } from 'socket.io-client';
 
 const App = () => {
-  const API_URL = 'http://127.0.0.1:5000'
+  const API_URL = 'https://text-board-442517.ue.r.appspot.com'
   const [board, setBoard] = useState([])
   const [input, setInput] = useState('')
+  const [name, setName] = useState('')
 
   useEffect(() => {
+    const socket = io(API_URL);
+
     const fetchBoard = async () => {
       try {
         const response = await fetch(`${API_URL}/`);
@@ -18,12 +22,24 @@ const App = () => {
     }
 
     fetchBoard()
+
+    socket.on('update_board', (data) => {
+      setBoard(data.board);
+    })
+
+    return () => {
+      socket.off('update_board');
+      socket.disconnect();
+    }
   }, [])
-  
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+  }
+
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
       setInput('')
-      
       try {
         const response = await fetch(`${API_URL}`, {
           method: 'POST',
@@ -37,13 +53,8 @@ const App = () => {
       } catch (e) {
         console.error("Error:", e);
       }
-    } else if (event.key === 'Backspace') {
-      setInput(input.slice(0,-1))
-    }  else if (event.key.length === 1) {
-      setInput(input + event.key)
     }
   }
-
   return (
     <div className="App">
       <h1>Text Board</h1>
@@ -51,6 +62,7 @@ const App = () => {
       type="text" 
       placeholder="input" 
       value={input}
+      onChange={handleInputChange}
       onKeyDown={handleKeyDown}
       />
       <div>
@@ -59,7 +71,6 @@ const App = () => {
       ))}
       </div>
     </div>
-  );
+  )
 }
-
 export default App;

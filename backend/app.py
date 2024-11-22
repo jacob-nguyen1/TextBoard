@@ -16,8 +16,9 @@ def handle_board():
     new_msg = request.json.get('message', '')
     if new_msg:
       board.insert(0, new_msg)
+      socketio.emit('update_board', {'board': board})
     return jsonify({'board': board})
 
 if __name__ == '__main__':
-  app.run()
+  socketio.run(app)
 
