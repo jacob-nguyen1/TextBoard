@@ -6,7 +6,6 @@ const App = () => {
   const API_URL = 'https://text-board-442517.ue.r.appspot.com'
   const [board, setBoard] = useState([])
   const [input, setInput] = useState('')
-  const [name, setName] = useState('')
 
   useEffect(() => {
     const socket = io(API_URL);
