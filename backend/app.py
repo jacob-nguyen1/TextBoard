@@ -10,6 +10,7 @@ board = []
 
 @app.route('/', methods=['GET', 'POST'])
 def handle_board():
+  global board
   if request.method == 'GET':
     return jsonify({'board': board})
   elif request.method == 'POST':
@@ -20,5 +21,4 @@ def handle_board():
     return jsonify({'board': board})
 
 if __name__ == '__main__':
-  socketio.run(app)
-
+  socketio.run(app, host='0.0.0.0', port=8080)
