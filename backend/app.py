@@ -27,7 +27,13 @@ def handle_board():
             # Handle CORS preflight requests
             return '', 204
         elif request.method == 'GET':
+            with sqlite3.connect('board.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('SELECT message FROM board_messages ORDER BY id DESC')
+                messages = cursor.fetchall()
+                board = [message[0] for message in messages]
             return jsonify({'board': board})
+
         elif request.method == 'POST':
             new_msg = request.json.get('message', '')
             print(new_msg)
