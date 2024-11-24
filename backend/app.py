@@ -37,7 +37,7 @@ def handle_board():
                     cursor.execute('CREATE TABLE IF NOT EXISTS board_messages (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT NOT NULL)')
                     cursor.execute('INSERT INTO board_messages (message) VALUES (?)', (new_msg,))
                     conn.commit()
-                board.insert(0, new_msg)
+                board = initialize_board()
                 socketio.emit('update_board', {'board': board})
             return jsonify({'board': board})
     except Exception as e:
