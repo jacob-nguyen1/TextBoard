@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { io } from 'socket.io-client';
 
 const App = () => {
-  const API_URL = 'https://text-board-442517.ue.r.appspot.com';
+  const API_URL = 'https://da1b-47-199-163-53.ngrok-free.app';
   const [board, setBoard] = useState([])
   const [input, setInput] = useState('')
 
@@ -38,7 +38,6 @@ const App = () => {
 
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      setInput('')
       try {
         const response = await fetch(`${API_URL}/api/board`, {
           method: 'POST',
@@ -52,6 +51,7 @@ const App = () => {
       } catch (e) {
         console.error("Error:", e);
       }
+      setInput('')
     }
   }
   return (
