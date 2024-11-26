@@ -39,11 +39,11 @@ def handle_board():
     global board
     try:
         if request.method == 'GET':
+            print("GET REQUEST RECEIVED")
             print(f"BOARD: {board}")
             return jsonify({'board': board})
         elif request.method == 'POST':
             new_msg = request.json.get('message', '')
-            print(new_msg)
             if new_msg:
                 connection = get_mysql_connection()
                 cursor = connection.cursor()

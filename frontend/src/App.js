@@ -12,7 +12,11 @@ const App = () => {
 
     const fetchBoard = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/board`);
+        const response = await fetch(`${API_URL}/api/board`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+          },
+        });
         const data = await response.json();
         setBoard(data.board);
       } catch (e) {
