@@ -8,7 +8,9 @@ const App = () => {
   const [input, setInput] = useState('')
 
   useEffect(() => {
-    const socket = io(API_URL);
+    const socket = io(API_URL.replace('https://', 'wss://'), {
+      transports: ['websocket'],
+    });    
 
     const fetchBoard = async () => {
       try {
