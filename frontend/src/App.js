@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { io } from 'socket.io-client';
 
 const App = () => {
-  const API_URL = 'https://4bc1-47-199-163-53.ngrok-free.app';
+  const API_URL = 'https://57db-128-227-34-232.ngrok-free.app';
   const [board, setBoard] = useState([])
   const [input, setInput] = useState('')
 
